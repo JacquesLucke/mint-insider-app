@@ -7,29 +7,39 @@ void main() {
 class PassItemInfo {
   String imagePath;
   String title;
+  bool done;
 
-  PassItemInfo({required this.imagePath, required this.title});
+  PassItemInfo(
+      {required this.imagePath, required this.title, this.done = false});
 }
 
 var passItems = [
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/ryCnnbZia.png",
-      title: "Mess Master"),
+    imagePath: "https://hackmd.io/_uploads/ryCnnbZia.png",
+    title: "Mess Master",
+    done: true,
+  ),
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/Sy2anWZoT.png",
-      title: "Försterdreieck"),
+    imagePath: "https://hackmd.io/_uploads/Sy2anWZoT.png",
+    title: "Försterdreieck",
+  ),
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/SklA3Wbj6.png",
-      title: "Tricks und Knobeleien"),
+    imagePath: "https://hackmd.io/_uploads/SklA3Wbj6.png",
+    title: "Tricks und Knobeleien",
+  ),
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/HJcAnZZop.png",
-      title: "Mathe-Magie"),
+    imagePath: "https://hackmd.io/_uploads/HJcAnZZop.png",
+    title: "Mathe-Magie",
+    done: true,
+  ),
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/BkxJ6WZja.png",
-      title: "Spielerisches Programmieren"),
+    imagePath: "https://hackmd.io/_uploads/BkxJ6WZja.png",
+    title: "Spielerisches Programmieren",
+  ),
   PassItemInfo(
-      imagePath: "https://hackmd.io/_uploads/SyVJ6ZZsT.png",
-      title: "Calliope Mini"),
+    imagePath: "https://hackmd.io/_uploads/SyVJ6ZZsT.png",
+    title: "Calliope Mini",
+  ),
 ];
 
 class MintInsiderPassApp extends StatelessWidget {
@@ -68,10 +78,18 @@ class PassItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Hero(
-        tag: info.imagePath,
-        child: Image.network(info.imagePath),
-      ),
+      child: Stack(children: [
+        Hero(
+          tag: info.imagePath,
+          child: Image.network(info.imagePath),
+        ),
+        FractionallySizedBox(
+          widthFactor: 0.4,
+          child: (info.done)
+              ? Image.network("https://hackmd.io/_uploads/rJCK-YWsa.png")
+              : const SizedBox.shrink(),
+        ),
+      ]),
       onTap: () {
         Navigator.push(
             context,
