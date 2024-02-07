@@ -60,7 +60,7 @@ class MintInsiderPassApp extends StatelessWidget {
             return PassItem(info: passItems[index]);
           },
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
+              crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
         ),
       ),
     );
@@ -81,7 +81,16 @@ class PassItem extends StatelessWidget {
       child: Stack(children: [
         Hero(
           tag: info.imagePath,
-          child: Image.network(info.imagePath),
+          child: AspectRatio(
+            aspectRatio: 1.0,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      alignment: FractionalOffset.topCenter,
+                      image: NetworkImage(info.imagePath))),
+            ),
+          ),
         ),
         FractionallySizedBox(
           widthFactor: 0.4,
@@ -111,7 +120,7 @@ class PassItemRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Element"),
+        title: Text(info.title),
         backgroundColor: Colors.green,
       ),
       body: Column(
@@ -120,7 +129,7 @@ class PassItemRoute extends StatelessWidget {
             tag: info.imagePath,
             child: Image.network(info.imagePath),
           ),
-          Center(child: Text(info.title)),
+          const Center(child: Text("Hier könnte noch mehr Text stehen")),
         ],
       ),
     );
